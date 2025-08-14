@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augustine Namunwa | Portfolio</title>
+    <!-- Use Tailwind CSS for a modern, responsive design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Custom font for the page */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000; /* Set a solid dark background for the entire page */
+            color: #fff;
+        }
+
+        /* Styles for the "About" section background image and overlay */
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1687794079217-c877ba6aae84?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzQzfHxuZXR3b3JrJTIwZW5naW5lZXJ8ZW58MHx8MHx8fDA%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* Style for the project cards */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-color: #4f46e5; /* Tailwind's indigo-600 */
+        }
+
+        /* Custom button styling with gradient */
+        .cta-button {
+            background-image: linear-gradient(to right, var(--tw-gradient-from, #4f46e5), var(--tw-gradient-to, #a855f7));
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1 rgba(0, 0, 0, 0.06);
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Social icon hover glow effect */
+        .social-icon:hover {
+            text-shadow: 0 0 8px #4f46e5; /* Tailwind's indigo-600 */
+        }
+
+        /* This ensures that when an anchor link is clicked, the section is positioned correctly and not hidden behind the fixed header. */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+
+        /* Styles for the modal pop-up form */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #4b5563; /* Tailwind's gray-600 */
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="antialiased transition-colors duration-300">
+    
+    <!-- Navigation Links and mobile menu toggle -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-black/30">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Mobile Menu Toggle Button, hidden on medium screens and up -->
+            <button id="mobile-menu-toggle" onclick="openMobileMenu()" class="md:hidden text-white p-2 rounded-lg backdrop-blur-sm bg-white/10 border border-white/30 hover:bg-white/20 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            
+            <!-- Navigation links wrapper for desktop and mobile -->
+            <div id="mobile-menu" class="hidden absolute top-full right-0 mt-2 z-40 bg-black/80 p-4 rounded-lg md:relative md:top-auto md:right-auto md:mt-0 md:p-0 md:bg-transparent md:rounded-none md:flex md:flex-row md:justify-end gap-4 transition-all duration-500 ease-in-out">
+                <a href="#about" onclick="closeMobileMenu()" class="text-white block text-center backdrop-blur-sm bg-white/10 border border-white/30 rounded-full py-2 px-6 hover:bg-white/20 transition-all duration-300">About</a>
+                <a href="#skills" onclick="closeMobileMenu()" class="text-white block text-center backdrop-blur-sm bg-white/10 border border-white/30 rounded-full py-2 px-6 hover:bg-white/20 transition-all duration-300">Skills</a>
+                <a href="#experience" onclick="closeMobileMenu()" class="text-white block text-center backdrop-blur-sm bg-white/10 border border-white/30 rounded-full py-2 px-6 hover:bg-white/20 transition-all duration-300">Experience</a>
+                <a href="#education" onclick="closeMobileMenu()" class="text-white block text-center backdrop-blur-sm bg-white/10 border border-white/30 rounded-full py-2 px-6 hover:bg-white/20 transition-all duration-300">Education</a>
+                <a href="#projects" onclick="closeMobileMenu()" class="text-white block text-center backdrop-blur-sm bg-white/10 border border-white/30 rounded-full py-2 px-6 hover:bg-white/20 transition-all duration-300">Projects</a>
+                <a href="#contact" onclick="closeMobileMenu()" class="text-white block text-center backdrop-blur-sm bg-white/10 border border-white/30 rounded-full py-2 px-6 hover:bg-white/20 transition-all duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main content starts here. -->
+    <main class="w-full min-h-screen">
+
+        <!-- About Section with the background image -->
+        <!-- Adjusted the top padding to a smaller value (pt-12) to move the content closer to the nav bar -->
+        <section id="about" class="hero-section min-h-screen relative pt-12 pb-12">
+            <div class="absolute inset-0 bg-black/50"></div> <!-- A semi-transparent overlay to ensure text readability -->
+            <div class="relative container mx-auto px-6 z-10 text-white">
+                <div class="flex flex-col md:flex-row items-center justify-center md:justify-around space-y-8 md:space-y-0 md:space-x-12 p-8 pt-12 pb-8">
+                    <!-- Profile Image -->
+                    <div class="flex-shrink-0">
+                        <img src="Profile Picture.jpg" alt="Your Name" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-lg border-4 border-white">
+                    </div>
+                    <!-- About Text and Social Links -->
+                    <div class="text-center md:text-left max-w-2xl">
+                        <h1 class="text-4xl md:text-5xl font-bold leading-tight text-cyan-300 mb-2">Hi! :), I'm Augustine </h1>
+                        <p class="text-2xl md:text-3xl font-light text-indigo-200 mb-6">Network Administrator</p>
+                        <p class="text-lg text-gray-200 mt-4 max-w-xl mx-auto md:mx-0">Hi I'm Augustine Namunwa Welcome to my portfolio website! I am a Network Administrator and ICT Specialist, currently working as an a ICT Officer at the ICT Authority. I am excited to share with you my work and experience in this field.</p>
+                        <p class="text-lg text-gray-200 mt-4 max-w-xl mx-auto md:mx-0">
+                            I'm HCIA Certified ICT professional with broad knowledge and experience in network infrastructure and operations, IT support, and system implementation. Skilled in data communication, routing and switching, network security, WLAN technologies, and IT troubleshooting. Proven expertise in ICT assets assessment, system evaluation and implementation, and delivering efficient technical support. Adept at conducting due diligence on ICT systems, optimizing performance, and ensuring compliance with security standards and best practices.
+                        </p>
+                        <p class="text-lg text-gray-200 mt-4 max-w-xl mx-auto md:mx-0">Thank you for taking the time to learn a little bit more about me. I hope that my portfolio showcases my skills and experience effectively, and I look forward to hear from you.</p>
+                        <div class="flex justify-center md:justify-start space-x-6 mt-6 text-white">
+                            <a href="https://github.com/Namunwa" class="transition-all duration-300 social-icon hover:text-indigo-300" aria-label="GitHub Profile">
+                                <i class="fab fa-github text-3xl"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/augustine-namunwa-hcia-4b297335a" class="transition-all duration-300 social-icon hover:text-indigo-300" aria-label="LinkedIn Profile">
+                                <i class="fab fa-linkedin text-3xl"></i>
+                            </a>
+                            <a href="mailto:namunwaaugustine@gmail.com" class="transition-all duration-300 social-icon hover:text-indigo-300" aria-label="Email">
+                                <i class="fas fa-envelope text-3xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- A separate container for the rest of the sections with a solid background -->
+        <div class="bg-black text-white">
+            <div class="container mx-auto px-6 pb-4">
+
+                <!-- Skills Section -->
+                <section id="skills" class="py-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center text-cyan-300 mb-12">Skills</h2>
+                    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Technical Skills</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <!-- Add your skills here as span tags -->
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Data Communication & Networking</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Routing & Switching</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">WLAN Technologies</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Network Security</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">IT Support</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">ICT Assets Valuation</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">BPR</span>
+                            
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Tools</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <!-- Add your frameworks here -->
+                                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Tera Term & PuTTY</span>
+                                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Cisco IOS</span>
+                                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Huawei VRP</span>
+                                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Nmap</span>
+                                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Wireshark</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Experience Section -->
+                <section id="experience" class="py-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center text-cyan-300 mb-12">Experience</h2>
+                    <div class="max-w-4xl mx-auto space-y-12">
+                        <!-- Job Entry 1 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-900">ICT OFFICER</h3>
+                                <span class="text-gray-500">March 2025 - Present</span>
+                            </div>
+                            <p class="text-lg text-gray-700 mb-4">Internship</p>
+                            <p class="text-lg text-gray-700 mb-4">ICT Authority | Nairobi, Kenya</p>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Provide first-line technical support to users, resolving hardware, software, and connectivity issues.</li>
+                                <li>Assist in the setup, configuration, and maintenance of computers, printers, and peripheral devices and software installations.</li>
+                                <li>Support ERP operations, including user account creation, resolving data entry issues, and guiding system navigation.</li>
+                                <li>Monitoring network performance and report connectivity or access concerns for resolution.</li>
+                                <li>Help maintain cybersecurity standards by updating antivirus software and applying basic security protocols.</li>
+                                <li>Operate and support Huawei’s Agile Controller for network access management and performance monitoring.</li>
+                                <LI>Perform server data backup procedures to safeguard organizational information and ensure data recovery readiness.</LI>
+                                <LI>Undertake field assignments for government organizations upon request, including ERP system assessments, ICT asset valuation, and other IT-related support tasks.</LI>
+                                <LI>Conduct ICT orientation sessions for new staff, introducing systems, tools, and organizational policies</LI>
+                                <li>Performing data migration tasks, ensuring accurate and secure transfer of information between systems.</li>
+                            </ul>
+                        </div>
+                        <!-- Job Entry 2 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-900">Exam Invigilator</h3>
+                                <span class="text-gray-500">June 2024</span>
+                            </div>
+                            <p class="text-lg text-gray-700 mb-4">The Kenya Institute of Management | Nakuru, Kenya</p>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Maintaining Examination Integrity – Ensuring that the exam is conducted according to rules and regulations, preventing cheating or any form of malpractice.</li>
+                                <li>Supervising Candidates – Monitoring students during the exam, giving instructions, and addressing any queries or issues without compromising fairness.</li>
+                                <li>Managing Exam Materials – Distributing and collecting exam papers and materials securely, and ensuring they are handled with confidentiality and accuracy.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Education Section -->
+                <section id="education" class="py-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center text-cyan-300 mb-12">Education</h2>
+                    <div class="max-w-4xl mx-auto space-y-8">
+                        <!-- Education Entry 1 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                            <h3 class="text-xl font-bold text-gray-900">Bachelor of Commerce, Business Information systems Major</h3>
+                            <p class="text-lg text-gray-700 mb-2">Egerton University</p>
+                            <p class="text-gray-500">Graduated: November 2024</p>
+                        </div>
+                        <!-- Education Entry 2 (Optional) -->
+                        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                            <h3 class="text-xl font-bold text-gray-900">Huawei Certified ICT Associate (HCIA) Certificate</h3>
+                            <p class="text-lg text-gray-700 mb-2">ICT Authority, Kenya</p>
+                            <p class="text-gray-500">Completed: July 2025</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects Section -->
+                <section id="projects" class="py-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center text-cyan-300 mb-12">My Projects</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <!-- Project Card 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 transform hover:scale-105 project-card border border-transparent hover:border-indigo-600">
+                            <img src="https://placehold.co/600x400/E5E7EB/4B5563?text=Project+1" alt="Project 1" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Decentralized Mesh Networks for Disaster Resilient Connectivity</h3>
+                                <p class="text-gray-600 mb-4">
+                                    <!-- Describe the project here -->
+                                    This project develops a decentralized wireless mesh network using Raspberry Pi nodes, LoRaWAN, Wi-Fi 6, and TV White Space (TVWS) to provide resilient communication in flood-prone areas like the Tana River Delta. The system self-heals, supports peer-to-peer connectivity, and prioritizes emergency traffic, solving the problem of connectivity loss during disasters and promoting last-mile digital inclusion.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <!-- List technologies used -->
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Raspberry Pi nodes</span>
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">LoRaWAN</span>
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Wi-Fi 6 & TV White Space (TVWS)</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="https://your-project-live-link.com" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center transition-colors duration-200">
+                                        Live Demo <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                                    </a>
+                                    <a href="https://github.com/Namunwa/Project1" target="_blank" class="text-gray-600 hover:text-gray-800 font-semibold flex items-center transition-colors duration-200">
+                                        GitHub <i class="fab fa-github ml-2 text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Card 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 transform hover:scale-105 project-card border border-transparent hover:border-indigo-600">
+                            <img src="https://placehold.co/600x400/E5E7EB/4B5563?text=Project+2" alt="Project 2" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">ICT Support Chatbot</h3>
+                                <p class="text-gray-600 mb-4">
+                                    <!-- Describe the project here -->
+                                    Coming Soon.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">JavaScript</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="https://your-project-live-link.com" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center transition-colors duration-200">
+                                        Live Demo <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                                    </a>
+                                    <a href="https://github.com/your-username/your-project-repo" target="_blank" class="text-gray-600 hover:text-gray-800 font-semibold flex items-center transition-colors duration-200">
+                                        GitHub <i class="fab fa-github ml-2 text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact" class="py-16 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-cyan-300 mb-4">Get In Touch</h2>
+                    <p class="text-lg text-indigo-200 mb-8 max-w-2xl mx-auto">
+                        Feel free to reach out to me for collaborations, job opportunities, or just to say hello!
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <!-- Updated 'Send an Email' link to open the modal form -->
+                        <a href="#" onclick="openContactForm()" class="cta-button inline-block text-white font-semibold py-3 px-8 rounded-full">
+                            <i class="fas fa-envelope mr-2"></i> Send an Email
+                        </a>
+                        <!-- Updated phone number link text to 'Call Me' -->
+                        <a href="tel:+254799912904" class="cta-button inline-block text-white font-semibold py-3 px-8 rounded-full">
+                            <i class="fas fa-phone mr-2"></i> Call Me
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Pop-up Contact Form -->
+    <div id="contact-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <button onclick="closeContactForm()" class="modal-close-btn">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Send a Message</h3>
+            <form id="contact-form">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-semibold mb-2">Your Name</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-semibold mb-2">Your Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-700 font-semibold mb-2">Your Message</label>
+                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Write your message here..." required></textarea>
+                </div>
+                <button type="submit" class="w-full cta-button text-white font-semibold py-3 px-4 rounded-lg">
+                    Send Message
+                </button>
+            </form>
+            <div id="form-status" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; <span id="current-year"></span> Augustine Namunwa. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for dynamic year and modal functionality -->
+    <script>
+        // Set the current year in the footer
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+
+        // JavaScript for the modal pop-up
+        const contactModal = document.getElementById('contact-modal');
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        function openContactForm() {
+            contactModal.classList.remove('hidden');
+            contactModal.classList.add('flex');
+        }
+
+        function closeContactForm() {
+            contactModal.classList.remove('flex');
+            contactModal.classList.add('hidden');
+        }
+
+        // Handle form submission (this is a placeholder, a real form would need a backend)
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            formStatus.classList.remove('hidden');
+            formStatus.classList.remove('text-red-500');
+            formStatus.classList.add('text-green-500');
+            formStatus.textContent = 'Thank you for your message!';
+            
+            // For a real application, you would send the form data to a server here using fetch()
+            // Example:
+            // const formData = new FormData(contactForm);
+            // fetch('your-email-submission-endpoint.php', {
+            //     method: 'POST',
+            //     body: formData
+            // }).then(response => {
+            //     if (response.ok) {
+            //         // Show success message
+            //     } else {
+            //         // Show error message
+            //     }
+            // }).catch(error => {
+            //     // Handle network errors
+            // });
+
+            // Clear the form after a short delay
+            setTimeout(() => {
+                contactForm.reset();
+                closeContactForm();
+                formStatus.classList.add('hidden');
+            }, 3000);
+        });
+
+        // Close the modal if the user clicks outside the form
+        contactModal.addEventListener('click', function(event) {
+            if (event.target === contactModal) {
+                closeContactForm();
+            }
+        });
+
+        // New JavaScript for mobile menu functionality
+        function openMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.remove('hidden');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
